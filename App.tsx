@@ -4,12 +4,10 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Feed from './src/screens/Feed';
-import Detail from './src/screens/Detail';
+import Detail from './src/screens/Details';
 
 const queryClient = new QueryClient();
-
 const Stack = createNativeStackNavigator();
-
 const config = {
   dependencies: {
     'linear-gradient': require('react-native-linear-gradient').default,
@@ -22,7 +20,7 @@ const App = () => {
       <NativeBaseProvider config={config}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={Feed} />
+            <Stack.Screen name="Feed" component={Feed} />
             <Stack.Screen name="Details" component={Detail} />
           </Stack.Navigator>
         </NavigationContainer>
