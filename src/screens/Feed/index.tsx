@@ -1,29 +1,31 @@
 import {Text} from 'react-native';
 import React from 'react';
-import {Center} from 'native-base';
+import {FlatList, ScrollView} from 'native-base';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../.types';
+import {Character, RootStackParamList} from '../../../.types';
+import {getAllCharacters} from '../../data/queries';
+import SuperHero from '../../components/SuperHero';
 const Feed = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {characters, error, isLoading} = getAllCharacters({});
+
+  const renderItem = (item: Character) => (
+    <SuperHero
+      name={item.name}
+      image={item.thumbnail.path + '.' + item.thumbnail.extension}
+      description={item.description}
+      id={item.id}
+      isLoading={isLoading}
+    />
+  );
 
   return (
-    <Center
-      flex={1}
-      _android={{}}
-      bg={{
-        linearGradient: {
-          colors: ['lightBlue.300', 'violet.800'],
-          start: [0, 0],
-          end: [1, 0],
-        },
-      }}>
-      <Text
-        onPress={() => {
-          navigation.navigate('Details');
-        }}>
-        fdf
-      </Text>
-    </Center>
+    <FlatList
+      padding={2}
+      data={characters}
+      renderItem={({item}) => renderItem(item)}
+      keyExtractor={(item) => item.id.toString()}
+    />
   );
 };
 
