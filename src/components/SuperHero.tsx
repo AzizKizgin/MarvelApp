@@ -1,6 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
-import {Box, Image, Skeleton} from 'native-base';
+import {Box, Image, Skeleton, Text} from 'native-base';
 
 interface SuperHeroProps {
   name: string;
@@ -46,7 +45,9 @@ const SuperHero: FC<SuperHeroProps> = (props) => {
           />
         </Box>
         <Box alignSelf={'center'} marginLeft={3}>
-          <Text>{name}</Text>
+          <Text fontSize={'md'} color={'cyan.800'}>
+            {name}
+          </Text>
         </Box>
       </Box>
     </Box>
@@ -54,5 +55,3 @@ const SuperHero: FC<SuperHeroProps> = (props) => {
 };
 
 export default SuperHero;
-
-const styles = StyleSheet.create({});
