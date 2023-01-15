@@ -1,10 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text} from 'react-native';
 import React from 'react';
 import {Center} from 'native-base';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../.types.d';
+import {RootStackParamList} from '../../../.types';
 const Feed = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   return (
     <Center
       flex={1}
@@ -27,5 +28,3 @@ const Feed = () => {
 };
 
 export default Feed;
-
-const styles = StyleSheet.create({});
