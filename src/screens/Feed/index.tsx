@@ -75,7 +75,6 @@ const Feed = () => {
         icon={<ChevronUpIcon />}
         display={isFabVisible ? 'flex' : 'none'}
         onPress={() => {
-          console.log('first');
           flatListRef.current?.scrollToIndex({
             index: 0,
           });
