@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {CharacterParams, ComicParams} from '../../.types';
 import urls from '../config/urls';
-import {hashHex, PUBLIC_API_KEY, ts} from '../utils/consts';
+import {PUBLIC_API_KEY, ts} from '../utils/consts';
+import {getHash} from './helpers';
 
 const makeRequest = async (url: string, params?: any) => {
   let response;
@@ -11,7 +12,7 @@ const makeRequest = async (url: string, params?: any) => {
     params: {
       ts: ts,
       apikey: PUBLIC_API_KEY,
-      hash: hashHex,
+      hash: getHash(),
       ...params,
     },
   });
