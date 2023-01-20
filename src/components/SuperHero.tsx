@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
-import {Box, Image, Skeleton, Text} from 'native-base';
-
+import React, {FC, useState} from 'react';
+import {Box, Image, Pressable, Skeleton, Text} from 'native-base';
+import FavButton from './FavButton';
 interface SuperHeroProps {
   name: string;
   image: string;
@@ -34,21 +34,24 @@ const SuperHero: FC<SuperHeroProps> = (props) => {
       borderRadius={'2xl'}
       backgroundColor={'gray.300'}
       marginY={1}>
-      <Box flexDirection={'row'}>
-        <Box alignSelf={'center'}>
-          <Image
-            source={{uri: image}}
-            alt="hero"
-            size={'lg'}
-            resizeMode={'contain'}
-            rounded={'2xl'}
-          />
+      <Box flexDirection={'row'} justifyContent={'space-between'}>
+        <Box flexDirection={'row'}>
+          <Box alignSelf={'center'}>
+            <Image
+              source={{uri: image}}
+              alt="hero"
+              size={'lg'}
+              resizeMode={'contain'}
+              rounded={'2xl'}
+            />
+          </Box>
+          <Box alignSelf={'center'} marginLeft={3} width={'60%'} flexShrink={1}>
+            <Text fontSize={'md'} color={'cyan.800'}>
+              {name}
+            </Text>
+          </Box>
         </Box>
-        <Box alignSelf={'center'} marginLeft={3}>
-          <Text fontSize={'md'} color={'cyan.800'}>
-            {name}
-          </Text>
-        </Box>
+        <FavButton />
       </Box>
     </Box>
   );
