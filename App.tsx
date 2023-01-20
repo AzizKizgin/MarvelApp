@@ -1,13 +1,9 @@
 import React from 'react';
 import {NativeBaseProvider} from 'native-base';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
-import Feed from './src/screens/Feed';
-import Detail from './src/screens/Details';
+import BottomNavigator from './src/navigator/BottomNavigator';
 
 const queryClient = new QueryClient();
-const Stack = createNativeStackNavigator();
 const config = {
   dependencies: {
     'linear-gradient': require('react-native-linear-gradient').default,
@@ -18,12 +14,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <NativeBaseProvider config={config}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="Feed" component={Feed} />
-            <Stack.Screen name="Details" component={Detail} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <BottomNavigator />
       </NativeBaseProvider>
     </QueryClientProvider>
   );

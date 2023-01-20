@@ -1,6 +1,5 @@
-import {Text} from 'react-native';
 import React from 'react';
-import {Center} from 'native-base';
+import {Center, Text} from 'native-base';
 
 const Detail = () => {
   return (
