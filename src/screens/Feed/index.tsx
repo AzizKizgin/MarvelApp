@@ -5,15 +5,17 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Character, RootStackParamList} from '../../../.types';
 import {getAllCharacters} from '../../data/queries';
 import SuperHero from '../../components/SuperHero';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, RefreshControl} from 'react-native-gesture-handler';
 const Feed = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [isFabVisible, setIsFabVisible] = useState(false);
   const [searchText, setSearchText] = useState<string>('');
+  const [refreshing, setRefreshing] = useState(false);
   const {characters, isLoading, fetchNextPage, refetch} = getAllCharacters({
     nameStartsWith: searchText !== '' ? searchText : undefined,
   });
   const flatListRef = useRef<FlatList>(null);
+
   const renderItem = (item: Character, index: number) => (
     <SuperHero
       name={item.name}
@@ -60,7 +62,16 @@ const Feed = () => {
           </Box>
         }
         onRefresh={refetch}
-        refreshing={isLoading}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={async () => {
+              setRefreshing(true);
+              await refetch();
+              setRefreshing(false);
+            }}
+          />
+        }
         onScroll={(event) => {
           if (event.nativeEvent.contentOffset.y > 500) {
             setIsFabVisible(true);
