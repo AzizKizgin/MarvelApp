@@ -1,14 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Box, Text} from 'native-base';
 import React from 'react';
 
-const index = () => {
-  return (
-    <View>
-      <Text>Favs</Text>
-    </View>
-  );
+const Favourites = () => {
+  return <Box flex={1}></Box>;
 };
 
-export default index;
-
-const styles = StyleSheet.create({});
+export default Favourites;
