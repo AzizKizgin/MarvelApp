@@ -1,6 +1,12 @@
 import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import {Character, CharacterParams, Comic, ComicParams} from '../../.types';
-import {getCharacter, getCharacters, getComic, getComics} from '../utils/api';
+import {
+  getCharacter,
+  getCharacterComics,
+  getCharacters,
+  getComic,
+  getComics,
+} from '../utils/api';
 
 export const getAllCharacters = (params: CharacterParams) => {
   const {
@@ -45,30 +51,32 @@ export const getAllCharacters = (params: CharacterParams) => {
     isFetching,
   };
 };
+
 export const getCharacterById = (id: number) => {
   const {data, isLoading, error, isFetching, isSuccess} = useQuery<{
     data: {
-      results: Character;
+      results: Character[];
     };
   }>(['character', id], () => getCharacter(id), {
     enabled: !!id,
   });
   return {
-    character: data?.data.results,
+    character: data?.data.results[0],
     isLoading: isLoading && isFetching,
     error,
     isSuccess,
   };
 };
 
-export const getCharacterComics = (id: number) => {
+export const getCharacterComicsById = (id: number) => {
   const {data, isLoading, error, isFetching, isSuccess} = useQuery<{
     data: {
-      results: Comic;
+      results: Comic[];
     };
-  }>(['characterComics', id], () => getCharacter(id), {
+  }>(['characterComics', id], () => getCharacterComics(id), {
     enabled: !!id,
   });
+
   return {
     comics: data?.data.results,
     isLoading: isLoading && isFetching,
@@ -96,13 +104,13 @@ export const getAllComics = (params: ComicParams) => {
 export const getComicById = (id: number) => {
   const {data, isLoading, error, isFetching, isSuccess} = useQuery<{
     data: {
-      results: Comic;
+      results: Comic[];
     };
   }>(['comic', id], () => getComic(id), {
     enabled: !!id,
   });
   return {
-    comic: data?.data.results,
+    comic: data?.data.results[0],
     isLoading: isLoading && isFetching,
     error,
     isSuccess,

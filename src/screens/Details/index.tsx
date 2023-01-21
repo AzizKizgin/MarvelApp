@@ -1,11 +1,83 @@
 import React from 'react';
-import {Center, Text} from 'native-base';
+import {Box, Center, Icon, Image, Skeleton, Text, VStack} from 'native-base';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {getCharacterById, getCharacterComicsById} from '../../data/queries';
+import {ScrollView} from 'react-native-gesture-handler';
+import HeroComic from './components/HeroComic';
+import FavButton from '../../components/FavButton';
 
 const Detail = () => {
-  return (
-    <Center>
-      <Text>Detail</Text>
-    </Center>
+  const {id} = useRoute().params;
+  const {character, isLoading, error, isSuccess} = getCharacterById(id);
+  const {
+    comics,
+    isLoading: isComicLoading,
+    error: comicError,
+    isSuccess: isComicSucces,
+  } = getCharacterComicsById(id);
+
+  return isComicLoading || isLoading ? (
+    <Box flex={1} backgroundColor={'gray.300'}>
+      <Center marginTop={6}>
+        <Skeleton height={300} width={300} rounded={'full'} />
+      </Center>
+      <VStack space={4} marginX={4} marginTop={10}>
+        <Skeleton height={10} width={'full'} rounded={'xl'} />
+        <Skeleton height={20} width={'full'} rounded={'xl'} />
+      </VStack>
+    </Box>
+  ) : (
+    <Box flex={1} backgroundColor={'gray.300'}>
+      <Center marginTop={6}>
+        <Image
+          source={{
+            uri:
+              character?.thumbnail.path + '.' + character?.thumbnail.extension,
+          }}
+          alt="hero"
+          height={300}
+          width={300}
+          rounded={'full'}
+          resizeMode={'contain'}
+        />
+      </Center>
+      <VStack space={4} marginX={4}>
+        <Center flexDirection={'row'} marginTop={4}>
+          <Text
+            fontSize={'2xl'}
+            fontWeight={'bold'}
+            textAlign={'center'}
+            color={'cyan.800'}>
+            {character?.name}
+          </Text>
+          <Box marginLeft={4}>
+            <FavButton />
+          </Box>
+        </Center>
+        <Text
+          fontSize={'md'}
+          textAlign={'center'}
+          color={'cyan.800'}
+          marginTop={4}>
+          {character?.description}
+        </Text>
+      </VStack>
+      <Box marginTop={10}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {comics?.map((comic) => (
+            <Box
+              key={comic.id}
+              justifyContent={'center'}
+              marginX={2}
+              borderRadius={'2xl'}
+              backgroundColor={'gray.300'}
+              marginY={1}>
+              <HeroComic id={comic.id} />
+            </Box>
+          ))}
+        </ScrollView>
+      </Box>
+    </Box>
   );
 };
 
