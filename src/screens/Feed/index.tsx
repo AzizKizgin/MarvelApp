@@ -6,14 +6,15 @@ import {Character, RootStackParamList} from '../../../.types';
 import {getAllCharacters} from '../../data/queries';
 import SuperHero from '../../components/SuperHero';
 import {FlatList, RefreshControl} from 'react-native-gesture-handler';
+import SearchBar from '../../components/ListComponents/SearchBar';
 const Feed = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [isFabVisible, setIsFabVisible] = useState(false);
   const [searchText, setSearchText] = useState<string>('');
   const [refreshing, setRefreshing] = useState(false);
-  const {characters, isLoading, fetchNextPage, refetch} = getAllCharacters({
-    nameStartsWith: searchText !== '' ? searchText : undefined,
-  });
+  const {characters, isLoading, fetchNextPage, refetch, isFetchingNextPage} =
+    getAllCharacters({
+      nameStartsWith: searchText !== '' ? searchText : undefined,
+    });
   const flatListRef = useRef<FlatList>(null);
 
   const renderItem = (item: Character, index: number) => (
@@ -29,25 +30,7 @@ const Feed = () => {
 
   return (
     <Box flex={1}>
-      <Box
-        marginY={1}
-        flexDirection={'row'}
-        justifyContent={'space-between'}
-        paddingX={3}
-        alignItems={'center'}>
-        <Box flex={1}>
-          <Input
-            backgroundColor={'gray.200'}
-            placeholder={'Search...'}
-            height={10}
-            fontSize={'md'}
-            InputRightElement={
-              <SearchIcon size={'md'} marginRight={2} color={'gray.400'} />
-            }
-            onChangeText={(text) => setSearchText(text)}
-          />
-        </Box>
-      </Box>
+      <SearchBar setSearchText={setSearchText} searchText={searchText} />
       <FlatList
         ref={flatListRef}
         style={{paddingHorizontal: 10, paddingBottom: 10, flex: 1}}
@@ -58,7 +41,8 @@ const Feed = () => {
         onEndReachedThreshold={0.5}
         ListFooterComponent={
           <Box marginBottom={'2'}>
-            <ActivityIndicator size={'large'} />
+            {isLoading ||
+              (isFetchingNextPage && <ActivityIndicator size={'large'} />)}
           </Box>
         }
         onRefresh={refetch}
@@ -83,6 +67,8 @@ const Feed = () => {
 
       <Fab
         key={'fab'}
+        position={'absolute'}
+        bottom={75}
         icon={<ChevronUpIcon />}
         display={isFabVisible ? 'flex' : 'none'}
         onPress={() => {
