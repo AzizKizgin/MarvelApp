@@ -1,6 +1,8 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {Box, Image, Pressable, Skeleton, Text} from 'native-base';
 import FavButton from './FavButton';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../.types';
 interface SuperHeroProps {
   name: string;
   image: string;
@@ -10,6 +12,7 @@ interface SuperHeroProps {
 }
 
 const SuperHero: FC<SuperHeroProps> = (props) => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {name, image, description, id, isLoading} = props;
   return isLoading ? (
     <Box
@@ -28,7 +31,12 @@ const SuperHero: FC<SuperHeroProps> = (props) => {
       </Box>
     </Box>
   ) : (
-    <Box
+    <Pressable
+      onPress={() => {
+        navigation.navigate('Details', {
+          id,
+        });
+      }}
       justifyContent={'center'}
       padding={1}
       borderRadius={'2xl'}
@@ -53,7 +61,7 @@ const SuperHero: FC<SuperHeroProps> = (props) => {
         </Box>
         <FavButton />
       </Box>
-    </Box>
+    </Pressable>
   );
 };
 
