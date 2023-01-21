@@ -1,6 +1,6 @@
 export type RootStackParamList = {
-  Home: undefined;
-  Details: undefined;
+  Home: undefined | {};
+  Details: undefined | {};
 };
 export type CharactersOrderBy = 'name' | 'modified' | '-name' | '-modified';
 export type CharacterParams = {
