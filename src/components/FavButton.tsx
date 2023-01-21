@@ -1,6 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Pressable} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AnimatedPressable from './AnimatedComponents/AnimatedPressable';
 import {
