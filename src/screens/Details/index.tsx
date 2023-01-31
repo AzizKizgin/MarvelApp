@@ -1,20 +1,17 @@
 import React from 'react';
-import {Box, Center, Icon, Image, Skeleton, Text, VStack} from 'native-base';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {Box, Center, Image, Skeleton, Text, VStack} from 'native-base';
+import {RouteProp, useRoute} from '@react-navigation/native';
 import {getCharacterById, getCharacterComicsById} from '../../data/queries';
 import {ScrollView} from 'react-native-gesture-handler';
 import HeroComic from './components/HeroComic';
 import FavButton from '../../components/FavButton';
+type RouteParams = RouteProp<{params: {id: number}}, 'params'>;
 
 const Detail = () => {
-  const {id} = useRoute().params;
-  const {character, isLoading, error, isSuccess} = getCharacterById(id);
-  const {
-    comics,
-    isLoading: isComicLoading,
-    error: comicError,
-    isSuccess: isComicSucces,
-  } = getCharacterComicsById(id);
+  const route = useRoute<RouteParams>();
+  const {id} = route.params;
+  const {character, isLoading} = getCharacterById(id);
+  const {comics, isLoading: isComicLoading} = getCharacterComicsById(id);
 
   return isComicLoading || isLoading ? (
     <Box flex={1} backgroundColor={'gray.300'}>
@@ -51,7 +48,7 @@ const Detail = () => {
             {character?.name}
           </Text>
           <Box marginLeft={4}>
-            <FavButton />
+            {character && <FavButton character={character} />}
           </Box>
         </Center>
         <Text

@@ -2,18 +2,17 @@ import React, {FC} from 'react';
 import {Box, Image, Pressable, Skeleton, Text} from 'native-base';
 import FavButton from './FavButton';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../.types';
+import {Character, RootStackParamList} from '../../.types';
 interface SuperHeroProps {
-  name: string;
-  image: string;
-  description: string;
-  id: number;
+  character: Character;
   isLoading?: boolean;
 }
 
 const SuperHero: FC<SuperHeroProps> = (props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const {name, image, description, id, isLoading} = props;
+  const {isLoading, character} = props;
+  const id = character.id;
+  const image = character.thumbnail.path + '.' + character.thumbnail.extension;
   return isLoading ? (
     <Box
       justifyContent={'center'}
@@ -55,11 +54,11 @@ const SuperHero: FC<SuperHeroProps> = (props) => {
           </Box>
           <Box alignSelf={'center'} marginLeft={3} width={'60%'} flexShrink={1}>
             <Text fontSize={'md'} color={'cyan.800'}>
-              {name}
+              {character.name}
             </Text>
           </Box>
         </Box>
-        <FavButton />
+        <FavButton character={character} />
       </Box>
     </Pressable>
   );
