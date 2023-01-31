@@ -24,27 +24,6 @@ const Feed = () => {
     />
   );
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert('Wait!', 'Are you sure you want to exit', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'YES', onPress: () => BackHandler.exitApp()},
-      ]);
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, []);
-
   return (
     <Box flex={1}>
       <SearchBar setSearchText={setSearchText} searchText={searchText} />
