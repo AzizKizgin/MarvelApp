@@ -31,7 +31,11 @@ export const isFav = async (id: number) => {
 };
 
 export const getAllFavs = async () => {
+  let allFavs: Character[] = [];
   const allSavedHero = await AsyncStorage.getAllKeys();
   const favs = await AsyncStorage.multiGet(allSavedHero);
-  console.log(favs);
+  favs.map((fav) => {
+    fav[1] && allFavs.push(JSON.parse(fav[1]));
+  });
+  return allFavs;
 };
