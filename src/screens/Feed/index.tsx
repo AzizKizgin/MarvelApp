@@ -1,8 +1,7 @@
-import {ActivityIndicator} from 'react-native';
-import React, {useRef, useState} from 'react';
-import {Box, ChevronUpIcon, Fab, Input, SearchIcon} from 'native-base';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {Character, RootStackParamList} from '../../../.types';
+import {ActivityIndicator, Alert, BackHandler} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Box, ChevronUpIcon, Fab} from 'native-base';
+import {Character} from '../../../.types';
 import {getAllCharacters} from '../../data/queries';
 import SuperHero from '../../components/SuperHero';
 import {FlatList, RefreshControl} from 'react-native-gesture-handler';
@@ -17,16 +16,34 @@ const Feed = () => {
     });
   const flatListRef = useRef<FlatList>(null);
 
-  const renderItem = (item: Character, index: number) => (
+  const renderItem = (item: Character) => (
     <SuperHero
-      name={item.name}
-      image={item.thumbnail.path + '.' + item.thumbnail.extension}
-      description={item.description}
-      id={item.id}
+      character={item}
       isLoading={isLoading}
       key={item.id.toString()}
     />
   );
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Wait!', 'Are you sure you want to exit', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <Box flex={1}>
@@ -35,7 +52,7 @@ const Feed = () => {
         ref={flatListRef}
         style={{paddingHorizontal: 10, paddingBottom: 10, flex: 1}}
         data={characters}
-        renderItem={({item, index}) => renderItem(item, index)}
+        renderItem={({item}) => renderItem(item)}
         keyExtractor={(item) => item.id.toString()}
         onEndReached={() => fetchNextPage()}
         onEndReachedThreshold={0.5}
