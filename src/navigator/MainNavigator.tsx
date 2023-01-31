@@ -1,7 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Details, Feed} from '../screens';
-import {Text} from 'native-base';
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
