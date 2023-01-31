@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useIsFocused} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Box, ChevronUpIcon, Fab, Text} from 'native-base';
 import React, {useEffect, useRef, useState} from 'react';
-import {Alert, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import {Character} from '../../../.types';
 import SearchBar from '../../components/ListComponents/SearchBar';
 import SuperHero from '../../components/SuperHero';
@@ -13,6 +13,7 @@ const Favourites = () => {
   const [isFabVisible, setIsFabVisible] = useState(false);
   const [searchText, setSearchText] = useState<string>('');
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
   const flatListRef = useRef<FlatList>(null);
   const renderItem = (item: Character) => (
     <SuperHero character={item} isLoading={false} key={item.id.toString()} />
@@ -34,15 +35,13 @@ const Favourites = () => {
   }, [searchText]);
 
   useEffect(() => {
-    const unsubscribe = isFocused
-      ? () => {
-          getAllFavs().then((res) => {
-            setAllFavs(res);
-          });
-        }
-      : undefined;
+    const unsubscribe = navigation.addListener('focus', () => {
+      getAllFavs().then((res) => {
+        setAllFavs(res);
+      });
+    });
     return unsubscribe;
-  }, [isFocused]);
+  }, [navigation]);
 
   return (
     <Box flex={1}>
