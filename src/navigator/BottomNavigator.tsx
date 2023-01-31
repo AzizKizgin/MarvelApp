@@ -5,6 +5,7 @@ import MainNavigator from './MainNavigator';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Center} from 'native-base';
+import FavNavigator from './FavNavigator';
 
 const Tab = createBottomTabNavigator();
 const BottomNavigator = () => {
@@ -23,7 +24,7 @@ const BottomNavigator = () => {
       }}>
       <Tab.Screen
         name="Favourites"
-        component={Favourites}
+        component={FavNavigator}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
