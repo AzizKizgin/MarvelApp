@@ -9,7 +9,6 @@ const HeroComic: FC<HeroComicProps> = (props) => {
   const {id} = props;
 
   const {comic, isLoading, error, isSuccess} = getComicById(id);
-  console.log(comic?.thumbnail.path + '.' + comic?.thumbnail.extension);
   return (
     <Box>
       {isLoading ? null : (
