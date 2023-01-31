@@ -8,12 +8,14 @@ import {
 } from 'react-native-reanimated';
 import {addToFavs, deleteFromFavs, isFav} from '../utils/helpers';
 import {Character} from '../../.types';
+import {useNavigation} from '@react-navigation/native';
 interface FavButtonProps {
   character: Character;
 }
 const FavButton: FC<FavButtonProps> = ({character}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const iconScale = useSharedValue(1);
+  const navigation = useNavigation();
   const iconRStyle = useAnimatedStyle(() => {
     return {
       transform: [{scale: iconScale.value}],
@@ -35,8 +37,27 @@ const FavButton: FC<FavButtonProps> = ({character}) => {
   useEffect(() => {
     isFav(character.id).then((res) => {
       setIsFavorite(res);
+      if (res) {
+        iconScale.value = withSpring(1.2);
+      } else {
+        iconScale.value = withSpring(1);
+      }
     });
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      isFav(character.id).then((res) => {
+        setIsFavorite(res);
+        if (res) {
+          iconScale.value = withSpring(1.2);
+        } else {
+          iconScale.value = withSpring(1);
+        }
+      });
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <AnimatedPressable alignSelf={'center'} style={iconRStyle} marginRight={4}>
