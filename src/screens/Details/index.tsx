@@ -24,42 +24,46 @@ const Detail = () => {
       </VStack>
     </Box>
   ) : (
-    <Box flex={1} backgroundColor={'gray.300'}>
-      <Center marginTop={6}>
-        <Image
-          source={{
-            uri:
-              character?.thumbnail.path + '.' + character?.thumbnail.extension,
-          }}
-          alt="hero"
-          height={250}
-          width={250}
-          rounded={'full'}
-          resizeMode={'contain'}
-        />
-      </Center>
-      <VStack space={4} marginX={4}>
-        <Center flexDirection={'row'} marginTop={4}>
-          <Text
-            fontSize={'2xl'}
-            fontWeight={'bold'}
-            textAlign={'center'}
-            color={'cyan.800'}>
-            {character?.name}
-          </Text>
-          <Box marginLeft={4}>
-            {character && <FavButton character={character} />}
-          </Box>
+    <Box flex={1} backgroundColor={'gray.300'} justifyContent={'space-between'}>
+      <Box>
+        <Center marginTop={6}>
+          <Image
+            source={{
+              uri:
+                character?.thumbnail.path +
+                '.' +
+                character?.thumbnail.extension,
+            }}
+            alt="hero"
+            height={250}
+            width={250}
+            rounded={'full'}
+            resizeMode={'contain'}
+          />
         </Center>
-        <Text
-          fontSize={'md'}
-          textAlign={'center'}
-          color={'cyan.800'}
-          marginTop={4}>
-          {character?.description}
-        </Text>
-      </VStack>
-      <Box marginTop={10}>
+        <VStack space={4} marginX={4}>
+          <Center flexDirection={'row'} marginTop={4}>
+            <Text
+              fontSize={'2xl'}
+              fontWeight={'bold'}
+              textAlign={'center'}
+              color={'cyan.800'}>
+              {character?.name}
+            </Text>
+            <Box marginLeft={4}>
+              {character && <FavButton character={character} />}
+            </Box>
+          </Center>
+          <Text
+            fontSize={'md'}
+            textAlign={'center'}
+            color={'cyan.800'}
+            marginTop={4}>
+            {character?.description}
+          </Text>
+        </VStack>
+      </Box>
+      <Box marginBottom={6}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {comics?.map((comic) => (
             <Box
