@@ -1,5 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AnimatedPressable from './AnimatedComponents/AnimatedPressable';
 import {
@@ -7,8 +6,12 @@ import {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-
-const FavButton = () => {
+import {addToFavs, deleteFromFavs, isFav} from '../utils/helpers';
+import {Character} from '../../.types';
+interface FavButtonProps {
+  character: Character;
+}
+const FavButton: FC<FavButtonProps> = ({character}) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const iconScale = useSharedValue(1);
   const iconRStyle = useAnimatedStyle(() => {
@@ -17,29 +20,43 @@ const FavButton = () => {
     };
   });
 
+  const addHeroToFavs = async (character: Character) => {
+    setIsFavorite(true);
+    iconScale.value = withSpring(1.2);
+    await addToFavs(character);
+  };
+
+  const deleteHeroFromFavs = async (id: number) => {
+    setIsFavorite(false);
+    iconScale.value = withSpring(1);
+    await deleteFromFavs(id);
+  };
+
   useEffect(() => {
-    if (isFavorite) {
-      iconScale.value = withSpring(1.2);
-    } else {
-      iconScale.value = withSpring(1);
-    }
-  }, [isFavorite]);
+    isFav(character.id).then((res) => {
+      setIsFavorite(res);
+    });
+  }, []);
 
   return (
-    <AnimatedPressable
-      alignSelf={'center'}
-      style={iconRStyle}
-      marginRight={4}
-      onPress={() => setIsFavorite(!isFavorite)}>
+    <AnimatedPressable alignSelf={'center'} style={iconRStyle} marginRight={4}>
       {isFavorite ? (
-        <Icon name="bookmark" size={25} color={'gray'} />
+        <Icon
+          name="bookmark"
+          size={25}
+          color={'gray'}
+          onPress={() => deleteHeroFromFavs(character.id)}
+        />
       ) : (
-        <Icon name="bookmark-outline" size={25} color={'gray'} />
+        <Icon
+          name="bookmark-outline"
+          size={25}
+          color={'gray'}
+          onPress={() => addHeroToFavs(character)}
+        />
       )}
     </AnimatedPressable>
   );
 };
 
 export default FavButton;
-
-const styles = StyleSheet.create({});
