@@ -8,7 +8,7 @@ interface HeroComicProps {
 const HeroComic: FC<HeroComicProps> = (props) => {
   const {id} = props;
 
-  const {comic, isLoading, error, isSuccess} = getComicById(id);
+  const {comic, isLoading} = getComicById(id);
   return (
     <Box>
       {isLoading ? null : (
@@ -17,8 +17,8 @@ const HeroComic: FC<HeroComicProps> = (props) => {
             uri: comic?.thumbnail.path + '.' + comic?.thumbnail.extension,
           }}
           alt="hero"
-          height={200}
-          width={200}
+          height={150}
+          width={150}
           rounded={'xl'}
           resizeMode={'contain'}
         />

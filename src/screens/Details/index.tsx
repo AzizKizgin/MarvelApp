@@ -32,8 +32,8 @@ const Detail = () => {
               character?.thumbnail.path + '.' + character?.thumbnail.extension,
           }}
           alt="hero"
-          height={300}
-          width={300}
+          height={250}
+          width={250}
           rounded={'full'}
           resizeMode={'contain'}
         />
