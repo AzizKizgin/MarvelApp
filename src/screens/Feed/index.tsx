@@ -1,15 +1,17 @@
-import {ActivityIndicator, Alert, BackHandler} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {Box, ChevronUpIcon, Fab} from 'native-base';
+import {ActivityIndicator} from 'react-native';
+import React, {memo, useRef, useState} from 'react';
+import {Box, ChevronUpIcon, Fab, Text} from 'native-base';
 import {Character} from '../../../.types';
 import {getAllCharacters} from '../../data/queries';
 import SuperHero from '../../components/SuperHero';
 import {FlatList, RefreshControl} from 'react-native-gesture-handler';
 import SearchBar from '../../components/ListComponents/SearchBar';
+import {useIsFocused} from '@react-navigation/native';
 const Feed = () => {
   const [isFabVisible, setIsFabVisible] = useState(false);
   const [searchText, setSearchText] = useState<string>('');
   const [refreshing, setRefreshing] = useState(false);
+  const isFocused = useIsFocused();
   const {characters, isLoading, fetchNextPage, refetch, isFetchingNextPage} =
     getAllCharacters({
       nameStartsWith: searchText !== '' ? searchText : undefined,
@@ -63,10 +65,10 @@ const Feed = () => {
 
       <Fab
         key={'fab'}
-        position={'absolute'}
         bottom={75}
         icon={<ChevronUpIcon />}
-        display={isFabVisible ? 'flex' : 'none'}
+        display={isFabVisible && isFocused ? 'flex' : 'none'}
+        bgColor={'#86a6c5'}
         onPress={() => {
           flatListRef.current?.scrollToIndex({
             index: 0,
