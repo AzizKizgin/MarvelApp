@@ -6,9 +6,9 @@ import {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {addToFavs, deleteFromFavs, isFav} from '../utils/helpers';
 import {Character} from '../../.types';
 import {useNavigation} from '@react-navigation/native';
+import {addToFavs, deleteFromFavs, isFav} from '../data/storage';
 interface FavButtonProps {
   character: Character;
 }

@@ -1,7 +1,5 @@
 import md5 from 'js-md5';
 import {PRIVATE_API_KEY, PUBLIC_API_KEY, ts} from './consts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Character} from '../../.types';
 import {Linking} from 'react-native';
 
 export const getHash = () => {
@@ -10,37 +8,9 @@ export const getHash = () => {
   return hash.hex();
 };
 
-export const addToFavs = async (character: Character) => {
-  const allSavedHero = await AsyncStorage.getAllKeys();
-  if (!allSavedHero.includes(character.id.toString())) {
-    await AsyncStorage.setItem(
-      character.id.toString(),
-      JSON.stringify(character),
-    );
-  }
-};
-
-export const deleteFromFavs = async (id: number) => {
-  if (await AsyncStorage.getItem(id.toString())) {
-    await AsyncStorage.removeItem(id.toString());
-  }
-};
-
-export const isFav = async (id: number) => {
-  const allSavedHero = await AsyncStorage.getAllKeys();
-  return allSavedHero.includes(id.toString());
-};
-
-export const getAllFavs = async () => {
-  let allFavs: Character[] = [];
-  const allSavedHero = await AsyncStorage.getAllKeys();
-  const favs = await AsyncStorage.multiGet(allSavedHero);
-  favs.map((fav) => {
-    fav[1] && allFavs.push(JSON.parse(fav[1]));
-  });
-  return allFavs;
-};
-
 export const ContactUs = () => {
   Linking.openURL('https://github.com/AzizKizgin');
 };
+
+export const defaultImage =
+  'http://i.annihil.us/u/prod/marvel/i/mg/9/c0/527bb7b37ff55.jpg';
