@@ -4,6 +4,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import BottomNavigator from './src/navigator/BottomNavigator';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import theme from './Theme';
 
 const queryClient = new QueryClient();
 const config = {
@@ -15,7 +16,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <NativeBaseProvider config={config}>
+      <NativeBaseProvider config={config} theme={theme}>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
