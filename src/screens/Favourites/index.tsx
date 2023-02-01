@@ -6,7 +6,7 @@ import {FlatList} from 'react-native';
 import {Character} from '../../../.types';
 import SearchBar from '../../components/ListComponents/SearchBar';
 import SuperHero from '../../components/SuperHero';
-import {getAllFavs} from '../../utils/helpers';
+import {getAllFavs} from '../../data/storage';
 
 const Favourites = () => {
   const [allFavs, setAllFavs] = useState<Character[]>([]);
