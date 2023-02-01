@@ -20,14 +20,14 @@ const ProfileItem = () => {
         <Text
           fontSize={'2xl'}
           fontWeight={'bold'}
-          color={'#405b67'}
+          color={'mainDarkBlue'}
           marginTop={4}>
           John Doe
         </Text>
         <Text
           fontSize={'md'}
           fontWeight={'bold'}
-          color={'#405b67'}
+          color={'mainDarkBlue'}
           opacity={0.7}
           marginTop={1}>
           Iron Man

@@ -10,15 +10,15 @@ const ContactUsItem = () => {
         <HStack space={2} alignItems={'center'}>
           <Icon
             as={<MaterialIcons name={'contact-support'} />}
-            color={'#405b67'}
+            color={'mainDarkBlue'}
           />
-          <Text fontSize={'lg'} color={'#405b67'} fontWeight={'medium'}>
+          <Text fontSize={'lg'} color={'mainDarkBlue'} fontWeight={'medium'}>
             Contact Us
           </Text>
         </HStack>
         <Icon
           as={<MaterialIcons name={'keyboard-arrow-right'} />}
-          color={'#405b67'}
+          color={'mainDarkBlue'}
           size={6}
           marginRight={2}
         />
