@@ -2,6 +2,7 @@ import md5 from 'js-md5';
 import {PRIVATE_API_KEY, PUBLIC_API_KEY, ts} from './consts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Character} from '../../.types';
+import {Linking} from 'react-native';
 
 export const getHash = () => {
   const hash = md5.create();
@@ -38,4 +39,8 @@ export const getAllFavs = async () => {
     fav[1] && allFavs.push(JSON.parse(fav[1]));
   });
   return allFavs;
+};
+
+export const ContactUs = () => {
+  Linking.openURL('https://github.com/AzizKizgin');
 };
