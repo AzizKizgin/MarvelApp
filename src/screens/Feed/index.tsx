@@ -3,10 +3,10 @@ import React, {useRef, useState} from 'react';
 import {Box, ChevronUpIcon, Fab} from 'native-base';
 import {Character} from '../../../.types';
 import {getAllCharacters} from '../../data/queries';
-import SuperHero from '../../components/SuperHero';
 import {FlatList, RefreshControl} from 'react-native-gesture-handler';
 import SearchBar from '../../components/ListComponents/SearchBar';
 import {useIsFocused} from '@react-navigation/native';
+import SuperHero from '../../components/SuperHero';
 const Feed = () => {
   const [isFabVisible, setIsFabVisible] = useState(false);
   const [searchText, setSearchText] = useState<string>('');
