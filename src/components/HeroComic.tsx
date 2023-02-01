@@ -1,6 +1,6 @@
 import {Box, Image} from 'native-base';
 import React, {FC} from 'react';
-import {getComicById} from '../../../data/queries';
+import {getComicById} from '../data/queries';
 
 interface HeroComicProps {
   id: number;
