@@ -1,4 +1,4 @@
-import {Box, Image, Skeleton} from 'native-base';
+import {Box, Image} from 'native-base';
 import React, {FC} from 'react';
 import {getComicById} from '../../../data/queries';
 
@@ -20,7 +20,7 @@ const HeroComic: FC<HeroComicProps> = (props) => {
           height={150}
           width={150}
           rounded={'xl'}
-          resizeMode={'contain'}
+          resizeMode={'cover'}
         />
       )}
     </Box>
