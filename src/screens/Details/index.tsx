@@ -23,7 +23,7 @@ const Detail = () => {
   ) : (
     <Box flex={1} variant={'container'} justifyContent={'space-between'}>
       <Box>
-        <HeroImage imageUrl={imageUrl} />
+        <HeroImage imageUrl={imageUrl} heroName={character?.name} />
         <HeroDetail character={character} />
       </Box>
       <Box marginBottom={6}>
