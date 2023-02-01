@@ -1,6 +1,6 @@
 import {ActivityIndicator} from 'react-native';
-import React, {memo, useRef, useState} from 'react';
-import {Box, ChevronUpIcon, Fab, Text} from 'native-base';
+import React, {useRef, useState} from 'react';
+import {Box, ChevronUpIcon, Fab} from 'native-base';
 import {Character} from '../../../.types';
 import {getAllCharacters} from '../../data/queries';
 import SuperHero from '../../components/SuperHero';
@@ -27,7 +27,7 @@ const Feed = () => {
   );
 
   return (
-    <Box flex={1}>
+    <Box flex={1} variant={'container'}>
       <SearchBar setSearchText={setSearchText} searchText={searchText} />
       <FlatList
         ref={flatListRef}
@@ -68,7 +68,7 @@ const Feed = () => {
         bottom={75}
         icon={<ChevronUpIcon />}
         display={isFabVisible && isFocused ? 'flex' : 'none'}
-        bgColor={'#86a6c5'}
+        bgColor={'mainDarkBlue'}
         onPress={() => {
           flatListRef.current?.scrollToIndex({
             index: 0,

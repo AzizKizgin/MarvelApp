@@ -19,9 +19,8 @@ const SearchBar = ({setSearchText, searchText}: SearchBarProps) => {
       alignItems={'center'}>
       <Box flex={1}>
         <Input
-          backgroundColor={'gray.200'}
+          variant={'searchBar'}
           placeholder={'Search...'}
-          height={10}
           fontSize={'md'}
           value={searchText}
           InputRightElement={

@@ -44,7 +44,7 @@ const Favourites = () => {
   }, [navigation]);
 
   return (
-    <Box flex={1}>
+    <Box flex={1} variant={'container'}>
       <SearchBar setSearchText={setSearchText} searchText={searchText} />
       <FlatList
         ref={flatListRef}

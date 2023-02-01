@@ -18,7 +18,7 @@ const SuperHero: FC<SuperHeroProps> = memo((props) => {
       justifyContent={'center'}
       padding={1}
       borderRadius={'2xl'}
-      backgroundColor={'gray.300'}
+      variant={'superHeroContainer'}
       marginY={1}>
       <Box flexDirection={'row'}>
         <Box alignSelf={'center'}>
@@ -39,16 +39,18 @@ const SuperHero: FC<SuperHeroProps> = memo((props) => {
       justifyContent={'center'}
       padding={1}
       borderRadius={'2xl'}
-      backgroundColor={'gray.300'}
       marginY={1}>
-      <Box flexDirection={'row'} justifyContent={'space-between'}>
+      <Box
+        flexDirection={'row'}
+        justifyContent={'space-between'}
+        variant={'superHeroContainer'}>
         <Box flexDirection={'row'}>
           <Box alignSelf={'center'}>
             <Image
               source={{uri: image}}
               alt="hero"
               size={'lg'}
-              resizeMode={'contain'}
+              resizeMode={'cover'}
               rounded={'2xl'}
             />
           </Box>

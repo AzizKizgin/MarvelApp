@@ -14,7 +14,7 @@ const Detail = () => {
   const {comics, isLoading: isComicLoading} = getCharacterComicsById(id);
 
   return isComicLoading || isLoading ? (
-    <Box flex={1} backgroundColor={'gray.300'}>
+    <Box flex={1} variant={'container'}>
       <Center marginTop={6}>
         <Skeleton height={300} width={300} rounded={'full'} />
       </Center>
@@ -24,7 +24,7 @@ const Detail = () => {
       </VStack>
     </Box>
   ) : (
-    <Box flex={1} backgroundColor={'gray.300'} justifyContent={'space-between'}>
+    <Box flex={1} variant={'container'} justifyContent={'space-between'}>
       <Box>
         <Center marginTop={6}>
           <Image
@@ -38,7 +38,7 @@ const Detail = () => {
             height={250}
             width={250}
             rounded={'full'}
-            resizeMode={'contain'}
+            resizeMode={'cover'}
           />
         </Center>
         <VStack space={4} marginX={4}>
@@ -71,7 +71,7 @@ const Detail = () => {
               justifyContent={'center'}
               marginX={2}
               borderRadius={'2xl'}
-              backgroundColor={'gray.300'}
+              variant={'container'}
               marginY={1}>
               <HeroComic id={comic.id} />
             </Box>
