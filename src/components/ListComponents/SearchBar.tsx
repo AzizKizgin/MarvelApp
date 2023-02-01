@@ -12,7 +12,7 @@ const SearchBar = ({setSearchText, searchText}: SearchBarProps) => {
   };
   return (
     <Box
-      marginY={1}
+      marginY={2}
       flexDirection={'row'}
       justifyContent={'space-between'}
       paddingX={3}
